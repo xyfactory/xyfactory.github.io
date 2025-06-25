@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>POSTAL Redux</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('afcb8597-da17-49df-8a9e-4ced39bd3480/936b0eac-f6a4-452c-8b18-a45db6ac7540.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="afcb8597-da17-49df-8a9e-4ced39bd3480/1600dc71-16d2-4620-afa0-6645fbd4a9e0.ico"/> POSTAL Redux</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="afcb8597-da17-49df-8a9e-4ced39bd3480/cfef0664-47fc-4a97-bc2b-f71d6850f7c4.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>1h 7m 0s</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-23/07/2024">23/07/2024</a> 23:11:29</TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-16/09/2024">16/09/2024</a> 15:31:47</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-18/05/2025">18/05/2025</a> 0:22:22</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Played">Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-20/05/2016">20/05/2016</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-61">61</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-59">59</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Shooter">Shooter</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Running With Scissors">Running With Scissors</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-MD Games">MD Games</a><br/><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Running With Scissors">Running With Scissors</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Co-Operative">Co-Operative</a><br/><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="http://www.runningwithscissors.com" target="_blank">Official</a><br/><a href="https://store.steampowered.com/app/401680" target="_blank">Steam</a><br/><a href="https://en.wikipedia.org/wiki/Postal_Redux" target="_blank">Wikipedia</a><br/><a href="https://www.twitch.tv/directory/game/Postal%20Redux" target="_blank">Twitch</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Action">Action</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Co-op">Co-op</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Co-op Campaign">Co-op Campaign</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Dark Comedy">Dark Comedy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Dark Humor">Dark Humor</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Fast-Paced">Fast-Paced</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Gore">Gore</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Horror">Horror</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Isometric">Isometric</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Online Co-Op">Online Co-Op</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Pixel Graphics">Pixel Graphics</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Psychological Horror">Psychological Horror</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Shooter">Shooter</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Surreal">Surreal</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Top-Down">Top-Down</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Top-Down Shooter">Top-Down Shooter</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Twin Stick Shooter">Twin Stick Shooter</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Violent">Violent</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					The classic dark and surreal twin-stick isometric shooter returns with a vengeance!<br><br>POSTAL Redux is a high definition remake of The POSTAL Dude's infamous first foray into the world. Prepare to experience his psychological journey with faithfully recreated high resolution visuals, remastered music, sounds, and dialog, and revamped and modernized gameplay. Crazed gunmen out for your blood await you around every corner. The only choice is clear: Get them before they get you. Fight back with a devastating arsenal as you make your way through a violence-stricken town.<br><br>It's time to relive the madness of GOING POSTAL!<br><br><ul class="bb_ul"><li>Online Co-op: Go POSTAL together with up to four players! Join up with your friends to wreak carnage together.<br></li><li>Online Deathmatch: Engage in free-for-all frenzies with up to eight players!<br></li><li>Brand new Rampage mode: Take aim for the high score in this frantic mode that awards points for sustained kill streaks, creative methods of destruction, and blistering fast action!<br></li><li>Battle through 17 levels in the classic Campaign: Beginning from your humble Home, traverse through The Mine and Trailer Park, witness the mean streets of The Ghetto and the bright lights of The City, all the way to the final standoff at the Air Force Base, including a stop at the all-new Carnival.<br></li><li>Includes the original add-ons: Blast through Special Delivery's EZ Mart, Shanty Town, Earthquake, and the luxurious La Palamino Resort, and then head to Japan in Super POSTAL's Tokyo and Osaka! Play through everything together in the massive combined 23-level Excess Postage campaign!<br></li><li>A wide range of foes: Defend yourself against gun crazy Vigilantes, trigger-happy Police Officers, trained and efficient SWAT and Military squads, the quintessential Marching Band, and angry Ostriches!<br></li><li>10 weapons of destruction: Lay waste with the mighty Shotgun and Spray Cannon, roast attackers with Molotovs and the Flamethrower, fill the streets with fire with the Napalm Launcher, clear out entire groups with Grenades and the Rocket Launcher (Heatseekers included!), lay traps for unsuspecting pursuers with varied types of Mines, and introducing the commanding Revolver!</li></ul>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

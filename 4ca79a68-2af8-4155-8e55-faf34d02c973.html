@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Romance of the Three Kingdoms Maker</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('4ca79a68-2af8-4155-8e55-faf34d02c973/da1f526f-cf9e-4d14-8625-6e0db9310ad3.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="4ca79a68-2af8-4155-8e55-faf34d02c973/0d597a43-6da9-4f7c-b155-b5f530ae0511.ico"/> Romance of the Three Kingdoms Maker</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="4ca79a68-2af8-4155-8e55-faf34d02c973/45680677-5227-4197-bb52-54587a8444a4.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-02/12/2022">02/12/2022</a> 9:35:48</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-18/05/2025">18/05/2025</a> 1:25:34</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-09/12/2015">09/12/2015</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-64">64</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Strategy">Strategy</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Koei Tecmo Games Co., Ltd.">Koei Tecmo Games Co., Ltd.</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Koei Tecmo Games Co., Ltd.">Koei Tecmo Games Co., Ltd.</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/397720" target="_blank">Steam</a><br/><a href="http://www.gamecity.ne.jp/san_tkool/" target="_blank">Official Website</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Addictive">Addictive</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Alternate History">Alternate History</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Diplomacy">Diplomacy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Grand Strategy">Grand Strategy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Historical">Historical</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Immersive Sim">Immersive Sim</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Local Multiplayer">Local Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Military">Military</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Pixel Graphics">Pixel Graphics</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Replay Value">Replay Value</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Resource Management">Resource Management</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Retro">Retro</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-RPGMaker">RPGMaker</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Simulation">Simulation</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Strategy">Strategy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Tactical">Tactical</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Turn-Based Strategy">Turn-Based Strategy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Turn-Based Tactics">Turn-Based Tactics</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-War">War</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Wargame">Wargame</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					■ Characteristics of &quot;Romance of the Three Kingdoms Maker&quot;<br />
+<br />
+(1) Based on the classic &quot;Romance of the Three Kingdoms II,&quot; but with totally new graphics!<br />
+The historical simulation game system is based on the classic title &quot;Romance of the Three Kingdoms II,&quot; but the user interface has been given a complete visual overhaul. While enjoying these great new visuals you can also enjoy the same simple and fast-paced game play.<br />
+<br />
+(2) So many options for editing! Create your own unique scenario!　(* the function available only for the full-edition owners)<br />
+A wide range of editing options are available, including officers' names, faces and parameters, countries, forces, rewards, battlefields and titles. Freely editing them all will even allow you to create a totally new world, far removed from the &quot;Romance of the Three Kingdoms&quot;! There are also a replete selection of support functions, such as auto creation of officer parameters or back story based on selected images.<br />
+As well as thousands of available images for officer faces, including those taken from the history of the &quot;Romance of the Three Kingdoms&quot; series, a function is also provided to easily add your own images to the game.<br />
+<br />
+(3) If you just want to play rather than create, try the &quot;Free Play Edition&quot; for free! Packed with features for players to communicate with each other!<br />
+Edited original scenarios can be freely passed between players, and you can load and play any scenario created by another player. The &quot;Free Play Edition&quot; scheduled to be distributed for free alongside the full title can also load and play any scenario data.<br />
+The &quot;Twitter Post Function&quot; also allows any game screen to be easily captured, commented on and tweeted, promoting further communication and exchange between players.
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Inertial Drift</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('b4b1ce31-2650-4436-9257-41ec192bf3c1/2321d75a-c55e-4ea3-a0df-7139f0db08ce.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="b4b1ce31-2650-4436-9257-41ec192bf3c1/a64348a1-844a-4e2f-bc6a-97e073ff8083.ico"/> Inertial Drift</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="b4b1ce31-2650-4436-9257-41ec192bf3c1/f06c2f10-b2e0-4b98-b18c-6ffd2774c3ac.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-20/09/2024">20/09/2024</a> 16:31:15</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-17/05/2025">17/05/2025</a> 23:27:49</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-11/09/2020">11/09/2020</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-59">59</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-82">82</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Arcade">Arcade</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Racing">Racing</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Level 91 Entertainment">Level 91 Entertainment</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-PQube">PQube</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/1184480" target="_blank">Steam</a><br/><a href="http://pqube.co.uk/inertial-drift" target="_blank">Official</a><br/><a href="https://www.epicgames.com/store/en-US/p/inertial-drift" target="_blank">Epic</a><br/><a href="https://discord.gg/aEsa9F3avB" target="_blank">Discord</a><br/><a href="https://www.twitch.tv/directory/game/Inertial%20Drift/" target="_blank">Twitch</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-3D">3D</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Arcade">Arcade</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Beautiful">Beautiful</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Casual">Casual</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Colorful">Colorful</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Controller">Controller</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Difficult">Difficult</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Driving">Driving</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Fast-Paced">Fast-Paced</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Physics">Physics</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-PvP">PvP</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Racing">Racing</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Replay Value">Replay Value</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Split Screen">Split Screen</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Sports">Sports</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Story Rich">Story Rich</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Stylized">Stylized</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_1.png?t=1725891831" /><br>Set in a 90's retro future, Inertial Drift is an Arcade Racer with a devastatingly unique handling model and unbelievably satisfying twin-stick drift mechanics. Inertial Drift offers a whole new level of accessibility and challenge to the arcade racing genre - for a driving experience genuinely unlike anything you've played before.<br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_2.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/unique_twin_stick_controls.gif?t=1725891831" /><br>The left stick is used for steering, while the right hand <strong>Drift Stick</strong> gives you independent control over your drift. Intuitive for new players and uniquely challenging for pros. <br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_3.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Fiercely_Individual_Cars.gif?t=1725891831" /><br>Each one of the <strong>16 cars</strong> is a totally different beast, with unique characteristics to master. Get behind the wheel of Sport hatchbacks, Coupe's, Supercars &amp; more! <br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_4.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/20_tracks.gif?t=1725891831" /><br>Tear through neon city streets, race around rural temple complexes and hurtle down winding mountain passes. <br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_5.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Set_in_a_90s_retro_future.gif?t=1725891831" /><br>Each racetrack is set within a bold and distinctive environment. Including vibrant cityscapes, coastal sunsets, gorgeous starry skies and snow-capped peaks. <br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_6.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Single_Player_Story_Mode.gif?t=1725891831" /><br>With <strong>7 race event types</strong> there is plenty of opportunity to perfect your craft! Get competitive in a mix of races, head-to-heads, time trials and style showdowns! <br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Artboard_7.png?t=1725891831" /><br><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184480/extras/Multiplayer.gif?t=1725891831" /><br>Think you've mastered the perfect drift? What better way to prove it. Take on other racers via <strong>local co-op and online multiplayer. </strong>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

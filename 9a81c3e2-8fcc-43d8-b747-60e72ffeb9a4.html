@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>THE GAME OF LIFE 2</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('9a81c3e2-8fcc-43d8-b747-60e72ffeb9a4/0efdd9dc-65e0-4d7e-9b82-422e9066a466.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="9a81c3e2-8fcc-43d8-b747-60e72ffeb9a4/9dbccffd-b5fe-4c01-b93e-0900795f5629.ico"/> THE GAME OF LIFE 2</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="9a81c3e2-8fcc-43d8-b747-60e72ffeb9a4/e71bd19f-f412-463a-b867-29673d75a1b1.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>3h 52m 0s</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-16/09/2024">16/09/2024</a> 15:12:12</TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-16/09/2024">16/09/2024</a> 15:31:46</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-18/05/2025">18/05/2025</a> 1:23:27</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Played">Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-15/07/2020">15/07/2020</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-54">54</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-50">50</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Card & Board Game">Card & Board Game</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Marmalade Game Studio">Marmalade Game Studio</a><br/><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Marmalade Game Studio Ltd">Marmalade Game Studio Ltd</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Marmalade Game Studio">Marmalade Game Studio</a><br/><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Marmalade Game Studio Ltd">Marmalade Game Studio Ltd</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.marmaladegamestudio.com/games/the-game-of-life-2/" target="_blank">Official</a><br/><a href="https://www.youtube.com/channel/UCumvfXfBRw_KhfKgAREpgnw" target="_blank">YouTube</a><br/><a href="https://www.facebook.com/MarmaladeGameStudio" target="_blank">Facebook</a><br/><a href="https://twitter.com/MarmaladeGames" target="_blank">Twitter</a><br/><a href="https://www.instagram.com/marmaladegames" target="_blank">Instagram</a><br/><a href="https://store.steampowered.com/app/1455630/THE_GAME_OF_LIFE_2" target="_blank">Steam</a><br/><a href="http://itunes.apple.com/us/app/id1512751689#?platform=iphone" target="_blank">iPhone</a><br/><a href="http://itunes.apple.com/us/app/id1512751689#?platform=ipad" target="_blank">iPad</a><br/><a href="https://www.twitch.tv/directory/game/The%20Game%20of%20Life%202" target="_blank">Twitch</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-3D">3D</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-4 Player Local">4 Player Local</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Board Game">Board Game</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Card Game">Card Game</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Cartoon">Cartoon</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Casual">Casual</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Character Customization">Character Customization</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Choices Matter">Choices Matter</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Choose Your Own Adventure">Choose Your Own Adventure</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Colorful">Colorful</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Family Friendly">Family Friendly</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Life Sim">Life Sim</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Local Multiplayer">Local Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Party">Party</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-PvP">PvP</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Sequel">Sequel</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Simulation">Simulation</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Strategy">Strategy</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Tabletop">Tabletop</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					Prepare to live a thousand lives in The Game of Life 2! It’s the award-winning official sequel to the classic board game played by millions around the world. Gather your friends and family and dive into a bright, fun 3D world, bursting with adventure!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/1_costumize.gif?t=1725356354" /><br>A new Peg has entered the board! Choose from the Pink, Blue or the NEW Purple Peg. Select an Outfit and make your Peg your own. Browse a selection of cars, bikes and scooters and find a ride to suit your style. Will you wear your business suit on a bicycle? Or roll up to College in a Sports Car? It’s up to you!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/2_spin.gif?t=1725356354" /><br>It’s time to fly the nest! Spin the iconic Spinner and set off on your life journey. Will you go to College immediately, or drive straight into a career? Whatever direction you take, the spinner will decide where you land along the way.<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/3_crossroad.gif?t=1725356354" /><br>You’ll be presented with decisions at every twist and turn, but crossroad moments will affect your life path. Will you get married or stay single? Have kids or adopt a pet? Buy a house? Make a career change? It’s up to you! And in this sequel there’s an added crossroad, so you can choose to make those important choices earlier or later in life.<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/4_win.gif?t=1725356354" /><br>In the original The Game of Life game the wealthiest Peg won. In The Game of Life 2 decisions have been updated to fit with modern times, so you’ll also earn points for choices that bring you Knowledge and Happiness. Now it’s not only possible to win rich, but you can maximise your Knowledge or Happiness, or go for a healthy mix of all three, and come out on top!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/5_play.gif?t=1725356354" /><br>Life goes on! When you reach the end of the game you can choose to rest in a luxury retirement home, or ride off into the sunset and fulfil your bucket list! It’s up to you!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/6_unlock.gif?t=1725356354" /><br>Unlock new Outfits and Vehicles by playing the game and earning rewards! Collect 60 Happiness points, travel 100 spaces, collect 5000k; each accomplishment unlocks a puzzle piece. When you collect 6 puzzle pieces you unlock a bonus item, and there are eight to unlock in each world!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/7_discover.gif?t=1725356354" /><br>Live life in enchanted worlds, make friends with dinosaurs in the Age of Giants and launch into the futuristic Lunar Age! Every new world features new Outfits, Vehicles, Jobs, Properties and more! Buy worlds separately in-game, or buy the Ultimate Life Collection to unlock them all!<br><br><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1455630/extras/8_crossplay.gif?t=1725356354" /><br>Join your friends and family, whether they’re on PlayStation 4, PlayStation 5, Xbox, PC (Steam), Nintendo Switch, iOS or Android. Play together seamlessly on multiple consoles and platforms.
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

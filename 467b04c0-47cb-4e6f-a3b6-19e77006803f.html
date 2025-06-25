@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Blacklight: Retribution</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('467b04c0-47cb-4e6f-a3b6-19e77006803f/280344ff-22b4-4b28-bd11-d8003624949c.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="467b04c0-47cb-4e6f-a3b6-19e77006803f/cf94204f-c161-433e-b280-659c4fb761e2.ico"/> Blacklight: Retribution</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="467b04c0-47cb-4e6f-a3b6-19e77006803f/f8b06ce5-7485-4605-94b1-09ca5042a13e.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-02/12/2022">02/12/2022</a> 9:35:48</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-18/05/2025">18/05/2025</a> 1:14:35</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-02/07/2012">02/07/2012</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-68">68</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-75">75</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Shooter">Shooter</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Builder Box Games">Builder Box Games</a><br/><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Hardsuit Labs">Hardsuit Labs</a><br/><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Zombie Studios">Zombie Studios</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Perfect World Entertainment">Perfect World Entertainment</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="http://en.wikipedia.org/wiki/Blacklight:_Retribution" target="_blank">Wikia</a><br/><a href="https://en.wikipedia.org/wiki/Blacklight:_Retribution" target="_blank">Wikipedia</a><br/><a href="https://www.facebook.com/PlayBlacklight" target="_blank">Facebook</a><br/><a href="https://twitter.com/playblacklight" target="_blank">Twitter</a><br/><a href="https://www.youtube.com/user/PerfectWorldVideos" target="_blank">Youtube</a><br/><a href="https://store.steampowered.com/app/209870" target="_blank">Steam</a><br/><a href="https://www.playblacklight.com" target="_blank">Official Website</a><br/><a href="https://www.reddit.com/r/Blacklight" target="_blank">Reddit</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Action">Action</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Competitive">Competitive</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Co-op">Co-op</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Cyberpunk">Cyberpunk</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Fast-Paced">Fast-Paced</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-First-Person">First-Person</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-FPS">FPS</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Free to Play">Free to Play</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Futuristic">Futuristic</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Gun Customization">Gun Customization</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Massively Multiplayer">Massively Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Mechs">Mechs</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Military">Military</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-RPG">RPG</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Sci-fi">Sci-fi</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Shooter">Shooter</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Tactical">Tactical</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Zombies">Zombies</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					Take firefights to a futuristic new level in Blacklight: Retribution, a free-to-play FPS. See through walls with the HRV, deploy mechanized Hardsuits, and customize your weapons to dominate the opposition.<br><br>In Blacklight, mastering the futuristic tech is half of victory. You'll need to carefully balance your loadout, from the extreme customization possible in designing your firearms, to the equipment you carry and the in-match bonuses you can unlock. The Hyper Reality Visor (HRV) allows you to look through walls and spot enemies, and attack from where they aren't expecting - but be careful, because you're vulnerable while using it.<br><br>The other half of victory? Raw skill, same as it's always been. Good hunting, Agent...<h2 class="bb_tag">Key Features</h2><ul class="bb_ul"><li>Hardsuits - Use a variety of upgrades in each match, including calling in the hulking Hardsuit mech. Powerful but slow, this armored suit packs a one-shot, one-kill railgun and a high velocity minigun to clear rooms... fast.<br></li><li>Hyper Reality Vision - HRV Technology allows Agents to scout their enemies through the walls, pinpoint vital mission objectives, or locate weak points in an enemy Hardsuit.<br></li><li>Weapon Depots - Scattered across the battlefield are Weapon Depots that supply your team with additional ammo, heavier weapons such as a Rocket Launcher, or provide the ability to call down airstrikes and Hardsuits.<br></li><li>Free to Play! - Blacklight: Retribution is a fully Free-to-Play shooter. Earn Game Points (GP) after every match and use them to unlock various armor and weaponry for your Agent in game. <br></li><li>Customize Your Loadout - An Agent’s gun is their livelihood. Choose from 1000 different gun combinations by modifying your receivers with customizable Stock, Muzzle, Barrel, Magazine, and Scope, Camo, and Weapon Tags.<br></li><li>Protect Yourself - Whether your play style is run and gun, or survivability, or long range sniping the choice is yours to make in fully customizing your armor loadout.<br></li><li>Level Progression - Gain experience and levels through combat to unlock access to additional weapons, armor, and equipment.<br></li><li>Tons of Game Modes and Maps - Combat is engaged on a number of different 7 different game modes across 9 beautifully detailed maps. Game modes includes classics such Team Death Match, Domination, Capture the Flag, and Kill Confirmed while introducing new favorites likes Netwar.<br></li><li>Private Servers - Want to scrim with your clan mates? Challenge someone 1vs1? The private server option allows Agents to set up their own password protected server away from the pesky trolls.<br></li><li>Spectator Mode - Learn tips and tricks from the top players in Spectator mode, or simply enjoy the chaos from the best seat in the house.</li></ul>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

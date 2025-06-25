@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>White Day: A Labyrinth Named School</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('833b4358-e64e-4a49-b45f-239a918dbadb/87989d1c-5eba-4aad-ae6e-43285940fe5a.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="833b4358-e64e-4a49-b45f-239a918dbadb/c08abac6-b841-429a-b957-71dd1bdb4c8f.ico"/> White Day: A Labyrinth Named School</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="833b4358-e64e-4a49-b45f-239a918dbadb/965c1aae-fd5c-4840-abed-1ab87e6f6453.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-20/09/2024">20/09/2024</a> 16:31:15</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-18/05/2025">18/05/2025</a> 2:07:22</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-22/08/2017">22/08/2017</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-80">80</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-72">72</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Sonnori">Sonnori</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Arc System Works">Arc System Works</a><br/><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Justdan International">Justdan International</a><br/><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-PQube">PQube</a><br/><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Sonnori">Sonnori</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/466130" target="_blank">Steam</a><br/><a href="http://pqube.co.uk/whiteday/" target="_blank">Official</a><br/><a href="https://en.wikipedia.org/wiki/White_Day:_A_Labyrinth_Named_School_(2015_video_game)" target="_blank">Wikipedia</a><br/><a href="https://www.twitch.tv/directory/game/White%20Day:%20A%20Labyrinth%20Named%20School" target="_blank">Twitch</a><br/><a href="https://whiteday.fandom.com/wiki/White_Day:_A_Labyrinth_Named_School_(2015)" target="_blank">Wikia</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Action">Action</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Anime">Anime</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Atmospheric">Atmospheric</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Dating Sim">Dating Sim</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Female Protagonist">Female Protagonist</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-First-Person">First-Person</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Hentai">Hentai</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Horror">Horror</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Mature">Mature</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiple Endings">Multiple Endings</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Nudity">Nudity</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Psychological Horror">Psychological Horror</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Puzzle">Puzzle</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Sexual Content">Sexual Content</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Survival Horror">Survival Horror</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Violent">Violent</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					Steel your nerves for a Korean horror without equal! Step into the shoes of student Hee-Min Lee and brave the terrors of Yeondu High School in a terrifying survival horror game filled with puzzles, secrets and - of course - deadly ghosts.<h2 class="bb_tag">SYNOPSIS</h2>Prepare yourself for one of the most chilling games ever created! <br>On the eve of gift-giving holiday White Day, new Yeondu High School student Hee-Min Lee slips into school to hide a box of candies for the girl of his dreams. But when the school shutters slam shut, he finds himself trapped in the building overnight, hunted by a killer janitor and haunted by the troubled souls of the dead. <br>Playing as Hee-Min Lee, can you remain hidden, solve the clues and uncover the dark secrets of the building's past to survive the deadly threats? Or will the after-class horrors claim your life before you can escape? With no weapons to defend yourself there’s zero room for error in this tense, stealth-based scarefest brimming with secrets and multiple endings.<h2 class="bb_tag">FEATURES</h2><ul class="bb_ul"><li>A Classic Horror For A New Generation: The notorious 2001 first-person Korean survival horror considered by original fans to be one of the scariest games ever made returns by popular demand. Completely rebuilt for modern gamers, and finally localized for a western audience, <strong><i>White Day: A Labyrinth Named School</i></strong> is a true videogame nasty<br></li><li>Spine-Tingling Story: Trapped inside your school at night, you and your fellow classmates must carefully explore the twisting corridors by torchlight, hiding from possessed stalkers and running from evil spirits as you try to escape. With branching dialogue, collectable ghost stories hidden scares, <strong><i>White Day: A Labyrinth Named School</i></strong> demands to be played with headphones on and the lights off <br></li><li>Multiple Endings: Your actions determine where the story goes! Shape your relationship with the other students trapped inside the school to save or sacrifice your friends on the way to unlocking the nine different endings<br></li><li>Mind-Bending Puzzles: Thanks to an environment filled with classically-styled survival horror puzzles, White Day tests your brain as much as your run button. Collect items, solve riddles and race against the clock to save your friends from certain doom and unpick the secrets of the school<br></li><li>Cheaters Never Prosper: This school’s wise to those who want to take shortcuts! Puzzle solutions change every time, so pack away all thoughts of skipping the scary bits with a guide<br></li><li>Innovative Dynamic Scare System: Want to just absorb the story? Play on Very Easy to enjoy the adventure without the challenge. Eager to prove your bravery? Increase the difficulty setting to ramp up the scares and ghost activities, with hauntings ready to spring when you least expect it<br></li><li>Traditional Survival Horror Mechanics: Resource-based save points and limited healing items guarantee an edge-of-your-seat thrill ride that takes no prisoners<br></li><li>New Features: As well as all-new visuals and audio effects, discover a brand-new character, scenario, reimagined ghosts and special endings created specifically for this remake</li></ul>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

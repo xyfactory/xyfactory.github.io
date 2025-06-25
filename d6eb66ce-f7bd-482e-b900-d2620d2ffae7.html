@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Need for Speed Unbound</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('d6eb66ce-f7bd-482e-b900-d2620d2ffae7/989e6468-f3fc-4530-b827-abda0bd02b84.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="d6eb66ce-f7bd-482e-b900-d2620d2ffae7/80a7a131-9b3c-49cf-ac4e-996136bdd701.ico"/> Need for Speed Unbound</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="d6eb66ce-f7bd-482e-b900-d2620d2ffae7/aa012b8c-7f12-4f6b-814f-5a9b3fd7dae7.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>3h 35m 0s</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-06/01/2024">06/01/2024</a> 0:39:00</TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-15/01/2024">15/01/2024</a> 18:01:23</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-17/05/2025">17/05/2025</a> 23:39:02</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Played">Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-29/11/2022">29/11/2022</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-74">74</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-77">77</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Racing">Racing</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Criterion Games">Criterion Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Electronic Arts">Electronic Arts</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/1846380/Need_for_Speed_Unbound" target="_blank">Steam</a><br/><a href="https://store.epicgames.com/en-US/p/need-for-speed-unbound" target="_blank">Epic</a><br/><a href="https://www.ea.com/games/need-for-speed/need-for-speed-unbound" target="_blank">Official</a><br/><a href="https://www.twitch.tv/directory/game/Need%20for%20Speed%20Unbound" target="_blank">Twitch</a><br/><a href="https://www.youtube.com/needforspeed" target="_blank">YouTube</a><br/><a href="https://www.facebook.com/needforspeed" target="_blank">Facebook</a><br/><a href="https://twitter.com/needforspeed" target="_blank">Twitter</a><br/><a href="https://www.instagram.com/needforspeed" target="_blank">Instagram</a><br/><a href="https://en.wikipedia.org/wiki/Need_for_Speed_Unbound" target="_blank">Wikipedia</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Action">Action</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Anime">Anime</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Arcade">Arcade</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Atmospheric">Atmospheric</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Casual">Casual</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Character Customization">Character Customization</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Combat Racing">Combat Racing</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Controller">Controller</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Driving">Driving</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Immersive">Immersive</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Music">Music</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Online Co-Op">Online Co-Op</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Open World">Open World</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Racing">Racing</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Simulation">Simulation</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Split Screen">Split Screen</a><br/><a href="default%20combobox%20quicklinks_tag_ascending_name_ascending.html#quicklink-Sports">Sports</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<strong>BE NOTORIOUS </strong><br><br>You have taken on everyone and reached the top of the scene. In Need for Speed™ Unbound Volume 5, everybody knows your name, and you’re not going anywhere. Volume 5 delivers a new refreshed Speed Pass bringing 75 FREE ranks with retro kaleidoscopic cosmetics and customizations. Reach rank 50 and cruise the scene in the Buick Grand National GNX (1987). Shroud the streets in dark humor by heading to the store for new premium content packs including the “Trick or Street Swag Pack”, bringing to life the Legendary Custom MINI John Cooper Works Countryman '17 plus clothing pack, Skeleton Head mask, driving effect, exclusive horn, and more! With new vehicles, liveries, outfits, and customisations, Need for Speed™ Unbound Volume 5 delivers even more ways for you to be notorious and gain infamy.<br><br><strong>CELEBRATE THE STREETS</strong><br><br>Need for Speed Unbound Volume 4 celebrates your status on the streets of Lakeshore, but your outrageous style and skills mean the cops want to take you down in new Gauntlet Playlists. Feel the rush of the chase, but get busted and you lose your shot at big rewards! The celebrations continue at the Kennedy Test Track where you can tear it up in unique Porsche 75th anniversary events, plus new refreshed Speed Pass brings 75 ranks with new free cosmetics and customizations. Wheelspin through lvl 50 to earn the wildest Porsche 911 Legendary Custom that Lakeshore has seen. For the ultimate celebration of street style, head to the Store for the premium Hip Hop Origin Swag Pack, honoring the roots of hip hop with the Legendary Custom Mercedes-AMG G 63 (2017) plus clothing pack, a Doberman mask, Driving Effect, exclusive Horn, and more.<br><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_Volume3_header.png?t=1701207437" /><br><br><strong>LINKUP, RANK UP, GEAR UP</strong><br><br>Need for Speed Unbound Vol 3 brings the Lakeshore community together with the introduction of Linkups, a new free-roam feature pushing street racers to the limit through intense stunt-based heroic driving challenges. Blast through a series of escalating difficulty objectives at 7 locations across the map to earn XP, Bank, and maybe even the Top Player title! When the event draws to a close, you’ll still have to shake off the cops to hold on to all your hard-earned cash. Complete 12 Linkups to get the DMC DeLorean (1981) as a new Challenge reward. You’ve worked for that XP, now make the XP work for you! Rank up in Lakeshore with Speed Pass, which brings new ways to reward your progression with 75 free cosmetics and customizations, including the Legendary Custom Dodge SRT Viper 2014. Plus, elevate your style to the next level and show the streets what you’re about with new premium content in the Store, including the mecha-themed Robojets Swag Pack, a Legendary Custom Ford Mustang GT (2015) with a 10 level Speed Pass boost, and a Vol. 3 Customs Pack.<br><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_Volume2_header.png?t=1701207437" /><br><br><strong>TEAR UP THE STREETS, CONTROL THE CHASE.</strong><br><br>Tearing up the streets with friends brings more challenges as Need for Speed Unbound Vol 2 introduces new ways to compare and compete with the squad in Lakeshore Online, and even more opportunities to risk it all for rewards. Hit up your homies for an exhilarating cop chase through the streets or battle it out on a packed grid, making the most of every twist and turn to outsmart your friends and let them know who runs these streets! Further your legacy by racing against the clock in Hot Laps events that bring an intense blast of speed for you to master your driving skills. There are even more new ways to play with new Daily Challenges bringing different ways to earn fresh rewards to celebrate your driving skills, including the luxurious Mercedes-Maybach S 680 2021 and hot new Custom Build, Lotus Emira Balmain Edition 2021.<br><br><strong>START AT THE BOTTOM, RACE TO THE TOP</strong><br><br>The world is your canvas in Need for Speed Unbound. Prove you have what it takes to win The Grand, Lakeshore's ultimate street racing challenge. Across 4 intense weeks of racing, earn enough cash to enter weekly qualifiers, beat the competition, and make your mark on the street racing scene while outdriving and outsmarting the cops. Pack your garage with precision-tuned, custom rides and light up the streets with your unique style, exclusive fits, and a vibrant global soundtrack led by A$AP Rocky and AWGE that bumps in every corner of the world. Express yourself to the fullest with the freshest new art styles and signature tags that represent what you're all about. With separate single- and multiplayer campaigns, this latest edition in the Need for Speed franchise from Criterion Games™ delivers hours of electric, adrenaline-pumping action.<br><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_USP1_Banner.png?t=1701207437" /><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_USP2_Banner.png?t=1701207437" /><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_USP3_Banner.png?t=1701207437" /><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_USP4_Banner.png?t=1701207437" /><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_USP5_Banner.png?t=1701207437" /><br><img src="https://cdn.akamai.steamstatic.com/steam/apps/1846380/extras/NFS_Steam_PC_UX_Banner_V2.png?t=1701207437" />
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>
