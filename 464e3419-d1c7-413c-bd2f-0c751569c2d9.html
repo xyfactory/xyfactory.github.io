@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wildmender</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('464e3419-d1c7-413c-bd2f-0c751569c2d9/4c7e4a68-78c2-4b10-ad30-4cf934a55e2f.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="464e3419-d1c7-413c-bd2f-0c751569c2d9/ead3d31d-ca0b-4056-be2b-2c907c2499a8.ico"/> Wildmender</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="464e3419-d1c7-413c-bd2f-0c751569c2d9/b63afea7-f797-4c67-acce-b33132fba5cd.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-09/09/2025">09/09/2025</a> 17:13:15</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-09/09/2025">09/09/2025</a> 17:14:09</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-28/09/2023">28/09/2023</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Strategy">Strategy</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="#quicklink-Muse Games">Muse Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="#quicklink-Kwalee">Kwalee</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="#quicklink-Co-Operative">Co-Operative</a><br/><a href="#quicklink-Multiplayer">Multiplayer</a><br/><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/1599330/Wildmender" target="_blank">Steam</a><br/><a href="https://store.epicgames.com/en-US/p/wildmender-29ca3c" target="_blank">Epic</a><br/><a href="https://twitter.com/WildmenderGame" target="_blank">Twitter</a><br/><a href="https://www.twitch.tv/directory/game/Wildmender" target="_blank">Twitch</a><br/><a href="https://www.kwalee.com/gaming/wildmender" target="_blank">Official Website</a><br/><a href="https://store.playstation.com/en-us/concept/10005505" target="_blank">Playstation</a><br/><a href="https://discord.gg/rRRvhJCmyA" target="_blank">Discord</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<p class="bb_paragraph" >Wildmender is a game about bringing a deserted world back to life. </p><p class="bb_paragraph" >Explore the vast desert, alone or with friends. Collect plants and bring them back to your garden to thrive. Craft new tools and use them to shape the earth, and channel water to your plants. Delve into the mysteries of a fallen civilization and discover their magic. Befriend animals, spirits, and seek out the gods to help you defend the land from the vicious wraiths who seek to corrupt it. It’s up to you to save the world, one seed at a time. </p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f7adbf9ee8ea6a8f54dfd3ffe65b56f7.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f7adbf9ee8ea6a8f54dfd3ffe65b56f7.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f7adbf9ee8ea6a8f54dfd3ffe65b56f7.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >Turn the Desert Green</h2><p class="bb_paragraph" >With the tools you crafted, set out to grow the little oasis in the middle of a vast desert into your own thriving garden. Plant seeds, dig canals, nurture your plants, craft useful and beautiful structures, harness magical essence, protect against the forces of nature, and more! You’ll have plenty of space and choices to create the garden of your imagination. Acre by acre, you will reclaim the desert and reforest the world.</p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/741f5b93072cfadd1e2b9b4fe1a0360e.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/741f5b93072cfadd1e2b9b4fe1a0360e.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/741f5b93072cfadd1e2b9b4fe1a0360e.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >Explore, Forage, and Survive</h2><p class="bb_paragraph" >Explore the desert around you. It is not as barren as you think! Forage for seeds and resources. Store them for a longer journey or bring them back to your garden, the choice is yours. Manage your food and water carefully as your journey through the dunes, the drained and salted sea, the poisoned canyons, and the cold and distant mountains. The farther you adventure, the greater the peril and rewards. Rare minerals, exotic plants, adorable creatures, and ancient spirits await your discovery. </p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/eef0eba0ed0f73dabe6840c2f15ad49c.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/eef0eba0ed0f73dabe6840c2f15ad49c.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/eef0eba0ed0f73dabe6840c2f15ad49c.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >Uncover the Mystery</h2><p class="bb_paragraph" >What happened to this world? How did everything go wrong? How did the life-draining wraiths corrupt the land? Journey to the temples of the gods, learn their stories, rediscover arcane magic, unlock powerful weapons, tools, and abilities to help you defeat the wraiths, free the gods, and breathe new life to the world. </p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/8e45d389c1f1bc088afb5f44e6575384.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/8e45d389c1f1bc088afb5f44e6575384.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/8e45d389c1f1bc088afb5f44e6575384.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >4-Player Co-op Gardening</h2><p class="bb_paragraph" >Invite up to 3 of your friends to your garden online! Work together to tend your flourishing garden. Share resources and survive together. Adventure with friends through the lonely desert. Fight together against dangerous wraiths. But don’t forget, with more hands to garden you’ll have more mouths to feed!</p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/fa156e72b019404cc51c0bab9f6412b6.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/fa156e72b019404cc51c0bab9f6412b6.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/fa156e72b019404cc51c0bab9f6412b6.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >Customize your Garden and Looks</h2><p class="bb_paragraph" >Just let nature take its course or style the garden to your liking. Craft structures and tools to decorate and shape the terrain. Build bridges over canals, a footpath dotted with lanterns, stucco walls with a gate, magical sigils that return bees to your garden, a streaming waterfall with a pool below, and more. Craft a loom and weave a wide variety of outfits to travel the desert in style.</p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f3265f992e85814b1a68702e750b2db5.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f3265f992e85814b1a68702e750b2db5.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/f3265f992e85814b1a68702e750b2db5.mp4?t=1754474668" type="video/mp4"></video></span></p><h2 class="bb_tag" >Features:</h2><ul class="bb_ul"><li><p class="bb_paragraph" >Dozens of plant species to cultivate and grow, each with a variety of cultivars to be discovered</p></li><li><p class="bb_paragraph" >50+ craftable structures and tools to build and manage your perfect garden</p></li><li><p class="bb_paragraph" >75+ unlockable perks and ability upgrades</p></li><li><p class="bb_paragraph" >1-4 player online Co-op multiplayer</p></li><li><p class="bb_paragraph" >Procedurally generated world for a unique challenge every replay</p></li><li><p class="bb_paragraph" >Day-night cycle: plants thrive and grow in the sun, while ghosts roam the cool nights</p></li><li><p class="bb_paragraph" >Variety of outfits for your character</p></li><li><p class="bb_paragraph" >Difficulty settings and game modes that can be adjusted on the fly</p></li></ul><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/1c49b71368f203fb2156e8eeeb106169.poster.avif?t=1754474668" width=616 height=194 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/1c49b71368f203fb2156e8eeeb106169.webm?t=1754474668" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1599330/extras/1c49b71368f203fb2156e8eeeb106169.mp4?t=1754474668" type="video/mp4"></video></span></p>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

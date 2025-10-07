@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Heretic + Hexen</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('ac3216b8-2297-4cc1-8d53-fa36b723a8bc/09608d14-431d-4158-b2f0-ccd7197bb3ce.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="ac3216b8-2297-4cc1-8d53-fa36b723a8bc/9973928c-9177-4013-99d3-f54b8ab9633f.ico"/> Heretic + Hexen</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="ac3216b8-2297-4cc1-8d53-fa36b723a8bc/1c1c8a76-6bc8-4c04-9ad4-33bfe15a0e5d.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-13/08/2025">13/08/2025</a> 16:55:24</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-13/08/2025">13/08/2025</a> 16:55:55</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-07/08/2025">07/08/2025</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Role-playing (RPG)">Role-playing (RPG)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="#quicklink-Raven Software">Raven Software</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="#quicklink-Bethesda Softworks">Bethesda Softworks</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="#quicklink-Co-Operative">Co-Operative</a><br/><a href="#quicklink-Multiplayer">Multiplayer</a><br/><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://store.steampowered.com/app/3286930/Heretic__Hexen/" target="_blank">Uknown</a><br/><a href="https://www.gog.com/en/game/heretic_hexen" target="_blank">Uknown</a><br/><a href="https://store.playstation.com/en-us/concept/10012903" target="_blank">Uknown</a><br/><a href="https://bethesda.net/en-US/game/heretic_hexen" target="_blank">Uknown</a><br/><a href="https://www.xbox.com/en-US/games/store/heretic-hexen/9nc7nrd0cm11" target="_blank">Uknown</a><br/><a href="https://www.nintendo.com/us/store/products/heretic-plus-hexen-switch/?srsltid=AfmBOoqfUqFGKF_4b5p-ywYuETtNQYkgXAdEhoAkGOVXjnMS3sasp8XO" target="_blank">Uknown</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<p class="bb_paragraph" >Step into the definitive re-release of two dark spell-casting shooters that shaped the genre.</p><p class="bb_paragraph" >Forged by Raven Software on a modified DOOM engine, Heretic and Hexen were released in 1994 and 1995, pushing first person shooters into bold new territory. These innovative cult classics introduced groundbreaking features like inventory systems, vertical aiming, and distinct character classes, reshaping first person action games for generations to come. This enhanced restoration makes Heretic + Hexen available to new audiences and long-time fans with expanded accessibility across more platforms and languages than ever before. Whether you're returning to these shadowy realms or discovering them for the first time, an epic legacy awaits.</p><h2 class="bb_tag" >Owners Receive</h2><ul class="bb_ul"><li><p class="bb_paragraph" >Heretic: Shadow of the Serpent Riders¹</p></li><li><p class="bb_paragraph" >Hexen: Beyond Heretic¹</p></li><li><p class="bb_paragraph" >Hexen: Deathkings of the Dark Citadel¹</p></li><li><p class="bb_paragraph" >Two all-new episodes created in collaboration between individuals at id Software + Nightdive Studios:</p><ul class="bb_ul"><li><p class="bb_paragraph" >Heretic: Faith Renewed</p></li><li><p class="bb_paragraph" >Hexen: Vestiges of Grandeur</p></li></ul></li></ul><p class="bb_paragraph" >There are a total of 117 campaign maps and 120 deathmatch maps in Heretic + Hexen.</p><h2 class="bb_tag" >New Enhancements</h2><ul class="bb_ul"><li><p class="bb_paragraph" >Online cross-platform deathmatch and co-op for up to 16 players²</p></li><li><p class="bb_paragraph" >Local split-screen deathmatch and co-op for up to 8 players</p></li><li><p class="bb_paragraph" >Toggleable, enhanced Tome of Power soundtrack by Andrew Hulshult</p></li><li><p class="bb_paragraph" >Community-published mod support with an in-game mod browser² ³</p></li><li><p class="bb_paragraph" >Improved performance with multithreaded rendering supporting up to 4K resolution and 120 FPS⁵</p></li><li><p class="bb_paragraph" >A Vault section containing concept art and unused sprites from the development of the original games</p></li><li><p class="bb_paragraph" >Accessibility options, such as updated UI, improved legibility, contrast and screen FX adjustments, and text-to-speech features.</p></li><li><p class="bb_paragraph" >Modern controller support</p><ul class="bb_ul"><li><p class="bb_paragraph" >Weapon carousel for faster weapon switching</p></li></ul></li><li><p class="bb_paragraph" >Game balance toggle (original/enhanced)</p></li><li><p class="bb_paragraph" >Quick Save/Load support</p></li><li><p class="bb_paragraph" >Widescreen support</p></li><li><p class="bb_paragraph" >Many engine fixes for bugs present in original versions</p></li><li><p class="bb_paragraph" >Translated into 12 new languages: French, Italian, German, Spanish, LATAM Spanish, Brazilian Portuguese, Polish, Russian, Japanese, Korean, Traditional Chinese and Simplified Chinese</p></li></ul><p class="bb_paragraph" >¹Original DOS versions of Heretic: Shadow of the Serpent Riders, Hexen: Beyond Heretic and Hexen: Deathkings of the Dark Citadel are included in the Steam version.</p><p class="bb_paragraph" >² account required.</p><p class="bb_paragraph" >³Mods need to be installed separately; installation requires additional system storage.</p><p class="bb_paragraph" >⁵Compatible display required.</p><h2 class="bb_tag" >About the Included Games</h2><p class="bb_paragraph" ><strong>Heretic: Shadow of the Serpent Riders</strong></p><p class="bb_paragraph" >Three brothers, known as the Serpent Riders, used their powerful magic to possess and corrupt the seven kings of the realm, plunging it into war and chaos. But a race of elves known as the Sidhe resisted and were branded heretics. On the brink of losing the war, the Sidhe elders sacrificed themselves and the elven capital city to destroy the seven kings and their armies. As one of the few surviving elves, you embark on a quest for vengeance against those who slaughtered your friends, family, and entire race.</p><p class="bb_paragraph" ><strong>Heretic: Faith Renewed [NEW]</strong></p><p class="bb_paragraph" >Years after the planes were cleansed of D'Sparil's wretched influence, a wandering warrior in search of home arrives at a foreign land to discover the blighted stains of that old time religion seeping through the cracks of society once more. In the fortified city, zealous acolytes stand high atop a decadent cathedral and listen to the lamentations echoing from the streets as non-believers are dragged away for 'correction.' The shadow of D'Sparil lingers after death, his absence attributed to apotheosis. Once revered, now worshipped, deserving of neither. An all-too-familiar scene, and one you simply cannot stomach. Taking up the mantle of Heretic once more, you stride into the city, staff in hand, to silence the echoes of your arch-nemesis.</p><p class="bb_paragraph" ><strong>Hexen: Beyond Heretic</strong></p><p class="bb_paragraph" >While the Sidhe elf Corvus battled the evil forces of D'Sparil, the remaining two Serpent Riders were busy sowing the seeds of destruction in other dimensions. As a Warrior, Mage, or Cleric, you must fight the undead and brave elemental dungeons and decaying wilderness to defend your realm of Cronos from Korax, the second Serpent Rider.</p><p class="bb_paragraph" ><strong>Hexen: Deathkings of the Dark Citadel</strong></p><p class="bb_paragraph" >After defeating the evil Korax, the second Serpent Rider, and discovering the Chaos Sphere, you have been transported to the Realm of the Dead. Now your only way home is blocked by hordes of undead and the Dark Citadel. Where Hexen ends, the true nightmare begins.</p><p class="bb_paragraph" ><strong>Hexen: Vestiges of Grandeur [NEW]</strong></p><p class="bb_paragraph" >Korax lingers between life and death, his shredded corpse left behind with no semblance of life while he clings to a fresh, if fragile, rebirth. His grip on Cronos is once more released, yet the cycle continues, proving another force is at work: an invisible hand puppeteering both Korax and you, weaving a star-crossed destiny that will never die. And if that hand tugs the threads of fate again, what surprises are yet in store for you?</p>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>

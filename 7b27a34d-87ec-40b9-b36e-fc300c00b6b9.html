@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Time at Sandrock</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+}
+
+.title img {
+	vertical-align: middle;                           /* images in title aligned vertical middle */
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.details img {
+	max-width: 100%;                                   /* make sure images don't overflow in width on details */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.52), rgba(0,0,0,0.73)), url('7b27a34d-87ec-40b9-b36e-fc300c00b6b9/af3113b9-12dc-4d50-8904-435560e00f2c.jpg');">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button><img Height="48" class="lozad" data-src="7b27a34d-87ec-40b9-b36e-fc300c00b6b9/f9246ce1-20a0-41c1-84ad-07bfcee00c94.ico"/> My Time at Sandrock</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />
+							<TR>
+								<TD style="text-align:center" Colspan="2"><img Height="175" class="lozad" data-src="7b27a34d-87ec-40b9-b36e-fc300c00b6b9/4d7b3502-4205-462d-b423-398b60f20f4f.jpg"/></TD>
+							</TR>
+							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-09/09/2025">09/09/2025</a> 17:13:14</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-09/09/2025">09/09/2025</a> 17:13:58</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-02/11/2023">02/11/2023</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="#quicklink-90">90</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="#quicklink-84">84</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Adventure">Adventure</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Indie">Indie</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Role-playing (RPG)">Role-playing (RPG)</a><br/><a href="default%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="#quicklink-Pathea Games">Pathea Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="#quicklink-Pathea Games">Pathea Games</a><br/><a href="#quicklink-PM Studios">PM Studios</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="#quicklink-Co-Operative">Co-Operative</a><br/><a href="#quicklink-Multiplayer">Multiplayer</a><br/><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.youtube.com/user/PatheaGames" target="_blank">YouTube</a><br/><a href="https://www.facebook.com/MyTimeAtSandrock" target="_blank">Facebook</a><br/><a href="https://twitter.com/MTASandrock" target="_blank">Twitter</a><br/><a href="https://www.instagram.com/mtasandrock" target="_blank">Instagram</a><br/><a href="https://www.reddit.com/r/MyTimeAtSandrock" target="_blank">Subreddit</a><br/><a href="https://www.gog.com/game/my_time_at_sandrock" target="_blank">GOG</a><br/><a href="https://store.steampowered.com/app/1084600" target="_blank">Steam</a><br/><a href="https://www.epicgames.com/store/p/my-time-at-sandrock" target="_blank">Epic</a><br/><a href="https://sandrock.pathea.net/" target="_blank">Official Website</a><br/><a href="https://discord.gg/CUyWt8U" target="_blank">Discord</a><br/><a href="https://mytimeatsandrock.fandom.com/wiki/My_Time_at_Sandrock" target="_blank">Community Wiki</a><br/><a href="https://www.twitch.tv/directory/game/My%20Time%20at%20Sandrock" target="_blank">Twitch</a><br/><a href="https://www.xbox.com/en-us/games/store/my-time-at-sandrock/9N15RZTXDNPG" target="_blank">Xbox</a><br/><a href="https://store.playstation.com/en-us/concept/10007685" target="_blank">Playstation</a><br/><a href="https://www.nintendo.com/store/products/my-time-at-sandrock-switch/" target="_blank">Nintendo</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<p class="bb_paragraph" >Want a bigger discount? Wishlist and follow us. </p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/de0bc37a6ceeb59b56aa47c0cd6b285a.poster.avif?t=1753339931" width=320 height=86 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/de0bc37a6ceeb59b56aa47c0cd6b285a.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/de0bc37a6ceeb59b56aa47c0cd6b285a.mp4?t=1753339931" type="video/mp4"></video></span></p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><strong>My Time at Sandrock</strong>-Just like My Time at Portia, My Time at Sandrock takes place in a wholesome post-apocalyptic world 330 years after the Day of Calamity destroyed most modern technologies.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" >After accepting a job offer to become Sandrock’s newest Builder, you’ll arrive in the wild and rugged city-state, where it’s up to you and your trusty tools to restore the community to its former glory. Gather resources to build machines, befriend locals, and defend Sandrock from monsters — all while saving the town from economic ruin!</p><p class="bb_paragraph" ></p><h2 class="bb_tag" >Key Features</h2><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/7c04a70ae6867109de1aa1f2c5d4199e.avif?t=1753339931" width=600 height=68 /></span></p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/5ffc878ab208b83d2b6d62bd0d208033.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/5ffc878ab208b83d2b6d62bd0d208033.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/5ffc878ab208b83d2b6d62bd0d208033.mp4?t=1753339931" type="video/mp4"></video></span></p><p class="bb_paragraph" >Transform a run-down workshop into a well-oiled production facility! Use an intricate set of machines to process materials and produce parts of huge structures before assembling them piece by piece to help Sandrock flourish.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" >Create hundreds of unique items at the worktable to decorate your homestead, give gifts to Sandrock’s residents, or assist with community requests.</p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/2263b06e889b9afc99b132ac00bf8424.avif?t=1753339931" width=600 height=90 /></span></p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/109b1fce3ee5dab894db95ced4bf49c9.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/109b1fce3ee5dab894db95ced4bf49c9.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/109b1fce3ee5dab894db95ced4bf49c9.mp4?t=1753339931" type="video/mp4"></video></span></p><p class="bb_paragraph" >Explore vast deserts surrounding the city-state of Sandrock. Dive into ruins to dig for Old World relics, seek our materials in hard-to-reach locations, or spend time relaxing in Sandrock with your neighbors.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/7e39d465fabcdcd5dd4f936ae37f9911.avif?t=1753339931" width=600 height=70 /></span></p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/03fb2c716e62c916109048f0c728bbdb.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/03fb2c716e62c916109048f0c728bbdb.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/03fb2c716e62c916109048f0c728bbdb.mp4?t=1753339931" type="video/mp4"></video></span></p><p class="bb_paragraph" >Experience a detailed story complete with hundreds of sidequests and over 30 all-new characters. Spend time getting to know Sandrock’s residents, uncovering backstories, and making meaningful connections along the way.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/19a11ec8ee2214e51efd8aff06cf94fd.avif?t=1753339931" width=600 height=83 /></span></p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c2de608aa89b5b261d210749210f75f0.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c2de608aa89b5b261d210749210f75f0.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c2de608aa89b5b261d210749210f75f0.mp4?t=1753339931" type="video/mp4"></video></span>Quickly shift between melee combat and third-person shooting mechanics in dynamic action battles.Use the new weapons and defense break mechanic to your tactical advantage, or boost your stats to simply smash through battles! </p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/MINI_GAMES.png?t=1753339931" /></span></p><p class="bb_paragraph" ><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/8c940d76a927cf5a678496bc35577388.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/8c940d76a927cf5a678496bc35577388.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/8c940d76a927cf5a678496bc35577388.mp4?t=1753339931" type="video/mp4"></video></span>A diversity of mini-games allow you and local Sandrock residents to stay entertained in the desert town.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/188ea869a2ad0a3a8c4a6f135ac11c38.avif?t=1753339931" width=616 height=123 /></span><span class="bb_img_ctn"><video class="bb_img" autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c9ffd05b429232e153a8ff286ae4c89f.poster.avif?t=1753339931" width=616 height=300 ><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c9ffd05b429232e153a8ff286ae4c89f.webm?t=1753339931" type="video/webm; codecs=vp9"><source src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/c9ffd05b429232e153a8ff286ae4c89f.mp4?t=1753339931" type="video/mp4"></video></span>Explore, build, and battle with up to 4 players. Together, shape the dynamic town, construct towering structures, engage in battles, share romantic moments, and dive into mini-games. Every move counts, earning points and unlocking new dimensions for your evolving character. </p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/fba7836837d11a5b6c7ea2aa3d81af4c.avif?t=1753339931" width=600 height=79 /></span></p><ul class="bb_ul"><li><p class="bb_paragraph" >Use your workshop’s profits to turn the empty prairie into farmable land;</p></li><li><p class="bb_paragraph" >Grow crops for extra cash or transform them into delicious dishes;</p></li><li><p class="bb_paragraph" >Attend festivals with Sandrock’s residents;</p></li><li><p class="bb_paragraph" >Find secrets and much more!</p></li></ul><p class="bb_paragraph" ></p><p class="bb_paragraph" >Both <strong>Portians </strong>and <strong>brand-new Builders </strong> who have never set foot in Portia will find a fun new world with lots to explore at their own pace, along with divergent NPC stories to enhance replayability. Experienced Builders will find everything you enjoyed about My Time at Portia and more, and you will feel right at home in the delightful life-sim RPG that is My Time at Sandrock.</p><p class="bb_paragraph" ></p><p class="bb_paragraph" ><span class="bb_img_ctn"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1084600/extras/cafeb39e044f5a61c23bfa62fc8efea6.avif?t=1753339931" width=600 height=130 /></span></p>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+		<script>
+			const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+			observer.observe();
+		</script>
+	</body>	
+</html>
